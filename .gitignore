@@ -21,3 +21,6 @@ tmp/*
 nbproject
 public/cache/*
 .rbenv-version
+*.iml
+.idea/*
+.bundle/*
