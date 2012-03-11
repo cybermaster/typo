@@ -31,6 +31,10 @@ module Admin::BaseHelper
     '<input type="submit" value="' + val + '" class="btn primary" />'
   end
 
+  def merge(val = _("Store"))
+    '<input type="submit" value="' + val + '" class="btn primary" />'
+  end
+
   def link_to_edit(label, record, controller = controller.controller_name)
     link_to label, {:controller => controller, :action => 'edit', :id => record.id}, :class => 'edit'
   end
@@ -164,6 +168,14 @@ module Admin::BaseHelper
     result << " "
     result << save(message)
     return result
+  end
+
+  def cancel_or_merge(message=_("Merge"))
+    result = cancel
+    result << " "
+    result << _("or")
+    result << " "
+    result << merge(message)
   end
 
     def get_short_url(item)
