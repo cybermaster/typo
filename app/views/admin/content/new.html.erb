@@ -4,14 +4,12 @@
         { :action => "new", :id => @article.id , :class => ('autosave')}
 } %>
 
-<%= form_tag :action=>"edit", :id => @article.id do %>
-    <div class='clearfix'>
+<%= form_for :article, :url => {:action => "merge"} do |m| %>
+
         <label for="merge"><%= _("Article ID")%></label>
-        <div class='input'>
-            <%= text_field :Article, :class => 'small'  %>
-            <%= submit_tag "merge" %>
-          
-            <%= cancel_or_merge %>
-        </div>
-    </div>
+
+            <%= m.text_field :id, :class => 'small'%>
+
 <% end %>
+
+<%= link_to _("merge"), {:controller => 'admin/categories', :action => 'new' }, :class => 'btn info' %>

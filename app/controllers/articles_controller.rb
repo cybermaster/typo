@@ -100,6 +100,14 @@ class ArticlesController < ContentController
     render "errors/404", :status => 404
   end
 
+  def merge
+    @article = Article.find(params[:id])
+    unless @article.access_by? current_user
+      redirect_to :action => 'index'
+      flash[:error] = _("Error, you are not allowed to perform this action")
+      return
+    end
+  end
 
   ### Deprecated Actions ###
 
