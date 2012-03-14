@@ -35,6 +35,11 @@ module Admin::BaseHelper
     '<input type="submit" value="' + val + '" class="btn primary" />'
   end
 
+  def link_to_merge(label, controller = controller.controller_name)
+    link_to label, {:controller => controller, :action => merge, :id => merge.id}
+  end
+
+
   def link_to_edit(label, record, controller = controller.controller_name)
     link_to label, {:controller => controller, :action => 'edit', :id => record.id}, :class => 'edit'
   end

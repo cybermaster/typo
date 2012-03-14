@@ -4,12 +4,14 @@
         { :action => "new", :id => @article.id , :class => ('autosave')}
 } %>
 
-<%= form_for :article, :url => {:action => "merge"} do |m| %>
-
-        <label for="merge"><%= _("Article ID")%></label>
-
-            <%= m.text_field :id, :class => 'small'%>
-
-<% end %>
-
-<%= link_to _("merge"), {:controller => 'admin/categories', :action => 'new' }, :class => 'btn info' %>
+<div class='left_form'>
+<%- if current_user.admin? %>
+        <h4><%= _("Merge Articles") %> </h4>
+        <%= form_tag({:controller => "content", :action => "merge", :id => @article.id}) do %>
+            <%= _("Article ID: ") %>
+            <%= text_field_tag(:other_article_id) %>
+            <br>
+            <%= submit_tag("Merge") %>
+        <% end %>
+<%- end %>
+</div>

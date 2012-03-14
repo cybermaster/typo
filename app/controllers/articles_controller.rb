@@ -101,7 +101,9 @@ class ArticlesController < ContentController
   end
 
   def merge
-    @article = Article.find(params[:id])
+    @article = Article.find_by_id(params[:id])
+    params[:merge_id]
+    redirect_to contents_path
     unless @article.access_by? current_user
       redirect_to :action => 'index'
       flash[:error] = _("Error, you are not allowed to perform this action")
