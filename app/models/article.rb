@@ -466,4 +466,32 @@ class Article < Content
     to = to - 1 # pull off 1 second so we don't overlap onto the next day
     return from..to
   end
+
+  ##added
+=begin
+    merge articles
+    carry over comments
+    remove first article
+=end
+  def self.merge(first_article_id, second_article_id)
+
+    first_article = Article.find_by_id(first_article_id)
+    second_article = Article.find_by_id(second_article_id)
+
+    puts first_article.body
+    puts second_article.body
+    first_article.body += second_article.body
+    first_article.save
+
+    second_article_comments = Comment.find_all_by_article_id(second_article_id)
+
+    second_article_comments.each do |sac|
+      sac.article_id = first_article_id
+      sac.save
+    end
+
+    second_article = Article.find_by_id(second_article_id)
+    second_article.destroy
+  end
+
 end
