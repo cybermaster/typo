@@ -34,4 +34,26 @@ describe "admin/content/new.html.erb" do
     assign(:resources, [])
     render
   end
+
+  #add
+  it 'non-admin cannot merge article' do
+    non_admin = stub_model(User, :settings => {:editor => 'simple'}, :admin? => false,
+                           :text_filter_name => "", :profile_label => "contributor")
+
+    blog = mock_model(Blog, :base_url => "http://myblog.net/")
+
+    article = stub_model(Article).as_new_record
+
+    text_filter = stub_model(TextFilter)
+
+    article.stub(:text_filter) { text_filter}
+    view.stub(:current_user) { non_admin }
+    view.stub(:this_blog) { blog }
+
+    assign(:images, [])
+    assign(:macros, [])
+    assign(:resources, [])
+    render
+    rendered.should_not contain("Merge Articles")
+  end
 end
